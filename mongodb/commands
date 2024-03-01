@@ -1,0 +1,12 @@
+## command to run mongodb
+helm install mongodb .
+helm list
+if we do any changes in value.yaml then we have to run upgrade command
+helm upgrade mongodb .
+
+
+Lab unistall commands
+helm uninstall mongodb
+kubectl delete pvc mongodb-mongodb-0
+
+
