@@ -5,8 +5,8 @@ if we do any changes in value.yaml then we have to run upgrade command
 helm upgrade mongodb .
 
 
-Lab unistall commands
-helm uninstall mongodb
+##  Lab unistall commands:
+helm uninstall mongodb  ##even we unistall the statefullset still volumes will reamin same and when ever again new pods are created then pods will attach to the same volumes.
 kubectl delete pvc mongodb-mongodb-0
 
 

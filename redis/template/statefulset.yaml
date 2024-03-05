@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: StatefulSet  ## Satefulset
+metadata:
+  name: redis ## Nmae of the satetefulset
+  namespace: roboshop
+  labels:
+    app: redis
+    project: roboshop
+    tier: db
+spec:
+  selector:
+    matchLabels:
+      app: redis
+      project: roboshop
+      tier: db
+  serviceName: "redis"
+  replicas: {{ .Values.statefulset.replicas }}  ##passing using helm charts 
+  template:
+    metadata:
+      labels:
+        app: redis
+        project: roboshop
+        tier: db
+    spec:
+      containers:
+      - name: redis
+        image: redis
+        volumeMounts:
+        - name: redis
+          mountPath: /data  ## by default redis will store the data here. 
+  volumeClaimTemplates:
+  - metadata:
+      name: redis
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "ebs-sc"  ## Name of the storage class from storag
+      resources:
+        requests:
+          storage: 1Gi

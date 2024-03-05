@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service  ## by default clusterip
+metadata:
+  name: redis ## Name of the service 
+  namespace: roboshop  ## Nmaespace name 
+  labels:
+    app: redis
+    project: roboshop
+    tier: db
+spec:
+  ports:
+  - protocol: TCP
+    port: 6379 #service-port
+    targetPort: 6379
+  clusterIP: None ## Statefulset willnot have clusterip
+  selector:
+    app: redis
+    project: roboshop
+    tier: db
