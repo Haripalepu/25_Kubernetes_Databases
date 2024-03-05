@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
       - name: mysql
-        image: "joindevops/mysql:{{ .Values.statefulset.imageVersion }}"
+        image: "haripalepu/mysql:{{ .Values.statefulset.imageVersion }}"
         args:
         - "--ignore-db-dir=lost+found"
         envFrom:
