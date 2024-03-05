@@ -1,0 +1,28 @@
+K9s to get the colourful console
+
+## Commnad to install K9S in workstation
+curl -sS https://webinstall.dev/k9s | bash
+
+
+## Login to K9s
+k9s
+
+
+## Commands 
+To get services
+shift+:  service 
+
+To get pods 
+shift+: pods
+
+To get namespaces 
+shift+: namespaces
+
+To get the pod logs 
+Select the pod and type "l"
+esc - To exit
+
+d - to describe
+
+
+
