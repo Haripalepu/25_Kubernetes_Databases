@@ -18,6 +18,10 @@ shift+: pods
 To get namespaces 
 shift+: namespaces
 
+To get namespaces 
+shift+: namespaces
+cntrl+d - To delete it
+
 To get the pod logs 
 Select the pod and type "l"
 esc - To exit
