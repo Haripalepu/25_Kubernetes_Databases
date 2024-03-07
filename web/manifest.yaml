@@ -133,7 +133,7 @@ spec:
     spec:
       containers:
       - name: web
-        image: joindevops/web:v1
+        image: haripalepu/web:v1
         imagePullPolicy: Always
         resources:
           requests:
@@ -204,7 +204,7 @@ metadata:
 spec:
   ingressClassName: alb
   rules:
-  - host: "roboshop.daws76s.online"
+  - host: "roboshop.haripalepu.cloud"
     http:
       paths:
       - pathType: Prefix

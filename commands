@@ -36,6 +36,7 @@ kubens roboshop
 
 ## Install Mongodb
 helm install mongodb .
+helm uninstall mongodb - To uninstall the pod
 
 ## Install Redis
 helm install redis .
@@ -59,4 +60,40 @@ kubectl run -i --tty load-generator --rm --image=busybox:1.28 --restart=Never --
 kubectl get hpa
 
 
+## Ingress controller setup:
 
+## 1.Assign ec2 full access role to worker node.
+## 2.Allow all traaffic in worker node security group
+
+## 3.Install OpenID connect
+eksctl utils associate-iam-oidc-provider \
+    --region us-east-1 \
+    --cluster roboshop \
+    --approve
+	
+## 4.Downloading IAM policy
+curl -o iam-policy.json https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.7.0/docs/install/iam_policy.json
+
+## 5.aws iam create-policy \
+    --policy-name AWSLoadBalancerControllerIAMPolicy \
+    --policy-document file://iam-policy.json
+	
+## 6.Replace with your aws account ID, clustername, region
+eksctl create iamserviceaccount \
+--cluster=roboshop \
+--namespace=kube-system \
+--name=aws-load-balancer-controller \
+--attach-policy-arn=arn:aws:iam::004316194461:policy/AWSLoadBalancerControllerIAMPolicy \
+--override-existing-serviceaccounts \
+--region us-east-1 \
+--approve
+
+7.helm repo add eks https://aws.github.io/eks-charts
+
+8.helm install aws-load-balancer-controller eks/aws-load-balancer-controller -n kube-system --set clusterName=roboshop --set serviceAccount.create=false --set serviceAccount.name=aws-load-balancer-controller
+
+kubectl get pods -n kube-system
+kubectl apply -f manifest.yaml
+kubectl get ingress -n robosho
+Create an a record and map to LB
+http://roboshop.haripalepu.cloud/
