@@ -21,7 +21,7 @@ helm upgrade --install aws-ebs-csi-driver --namespace kube-system aws-ebs-csi-dr
 git clone https://github.com/hari-palepu/25_Kubernetes_Databases.git
 
 ## Install storageclass
-kubectl apply -f storagecalss.yaml
+kubectl apply -f storageclass.yaml
 
 
 ## Install Namespace
@@ -39,6 +39,24 @@ helm install mongodb .
 
 ## Install Redis
 helm install redis .
+
+helm install mysql .
+
+helm install rabbitmq .
+
+
+## Install metrics server in workstation to measure the CPU & Ram of pods
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+Run the below command to see the CPU & RAM 
+kubectl top pods
+
+
+## Command to apply load 
+Replace this with your LB ID in below command so that i can apply load on our LB. http://ab1ee0baa7ef743c4888e15825416090-1271223202.us-east-1.elb.amazonaws.com 
+
+kubectl run -i --tty load-generator --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://ab1ee0baa7ef743c4888e15825416090-1271223202.us-east-1.elb.amazonaws.com; done"
+
+kubectl get hpa
 
 
 
