@@ -7,18 +7,26 @@
 
 2.Install Ebs drivers using helm in workstation using below commands.(To run the blelow command helm should be installed in workstation)
 
-commands to install helm:
+## commands to install helm:
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 chmod 700 get_helm.sh
 ./get_helm.sh
 
-commands to install EBS drivers:
+## commands to install EBS drivers:
 helm repo add aws-ebs-csi-driver https://kubernetes-sigs.github.io/aws-ebs-csi-driver
 helm repo update
 helm upgrade --install aws-ebs-csi-driver --namespace kube-system aws-ebs-csi-driver/aws-ebs-csi-driver
 
+
+## Install metrics server in workstation to measure the CPU & Ram of pods
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+Run the below command to see the CPU & RAM 
+kubectl top pods
+
+
 ## Clone the repo
 git clone https://github.com/hari-palepu/25_Kubernetes_Databases.git
+
 
 ## Install storageclass
 kubectl apply -f storageclass.yaml
@@ -45,19 +53,17 @@ helm install mysql .
 
 helm install rabbitmq .
 
+helm install catalogue .
 
-## Install metrics server in workstation to measure the CPU & Ram of pods
-kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
-Run the below command to see the CPU & RAM 
-kubectl top pods
+helm install user .
+
+helm install cart .
+
+helm install payment .
+
+helm install shipping .
 
 
-## Command to apply load 
-Replace this with your LB ID in below command so that i can apply load on our LB. http://ab1ee0baa7ef743c4888e15825416090-1271223202.us-east-1.elb.amazonaws.com 
-
-kubectl run -i --tty load-generator --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://ab1ee0baa7ef743c4888e15825416090-1271223202.us-east-1.elb.amazonaws.com; done"
-
-kubectl get hpa
 
 
 ## Ingress controller setup:
@@ -97,3 +103,13 @@ kubectl apply -f manifest.yaml
 kubectl get ingress -n robosho
 Create an a record and map to LB
 http://roboshop.haripalepu.cloud/
+
+
+helm install web .
+
+## Command to apply load 
+Replace this with your LB ID in below command so that i can apply load on our LB. http://ab1ee0baa7ef743c4888e15825416090-1271223202.us-east-1.elb.amazonaws.com 
+
+kubectl run -i --tty load-generator --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://ab1ee0baa7ef743c4888e15825416090-1271223202.us-east-1.elb.amazonaws.com; done"
+
+kubectl get hpa
