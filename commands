@@ -41,6 +41,9 @@ sudo git clone https://github.com/ahmetb/kubectx /opt/kubectx
 sudo ln -s /opt/kubectx/kubens /usr/local/bin/kubens
 kubens roboshop
 
+## Commnad to install K9S in workstation
+curl -sS https://webinstall.dev/k9s | bash
+
 
 ## Install Mongodb
 helm install mongodb .
